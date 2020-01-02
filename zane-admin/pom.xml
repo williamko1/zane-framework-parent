@@ -16,109 +16,38 @@
 	</description>
 
     <dependencies>
-    
-        <!-- SpringBoot集成thymeleaf模板 -->
+
+        <!-- swagger2-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
         </dependency>
 
-        <!-- spring-boot-devtools -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional> <!-- 表示依赖不会传递 -->
-		</dependency>
-
-		<!-- swagger2-->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-		</dependency>
-		
-		<!--防止进入swagger页面报类型转换错误，排除2.9.2中的引用，手动增加1.5.21版本-->
+        <!--防止进入swagger页面报类型转换错误，排除2.9.2中的引用，手动增加1.5.21版本-->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
             <version>1.5.21</version>
         </dependency>
-        
+
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-models</artifactId>
             <version>1.5.21</version>
         </dependency>
-		
-		<!-- swagger2-UI-->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-		</dependency>
 
-		<!-- 核心模块-->
+        <!-- swagger2-UI-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+
+        <!-- 核心模块-->
         <dependency>
             <groupId>me.zaneqin</groupId>
             <artifactId>zane-framework</artifactId>
         </dependency>
-        
-        <!-- 定时任务-->
-        <dependency>
-            <groupId>me.zaneqin</groupId>
-            <artifactId>zane-quartz</artifactId>
-        </dependency>
-        
-        <!-- 代码生成-->
-        <dependency>
-            <groupId>me.zaneqin</groupId>
-            <artifactId>zane-generator</artifactId>
-        </dependency>
 
-
-        <!-- 微信公众号 -->
-        <dependency>
-            <groupId>me.zaneqin</groupId>
-            <artifactId>zane-weixin</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>me.zaneqin</groupId>
-                    <artifactId>zane-common</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.projectlombok</groupId>
-                    <artifactId>lombok</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.1.1.RELEASE</version>
-                <configuration>
-					<fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-				</configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>   
-                <groupId>org.apache.maven.plugins</groupId>   
-                <artifactId>maven-war-plugin</artifactId>   
-                <version>3.0.0</version>   
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <warName>${project.artifactId}</warName>
-                </configuration>   
-		   </plugin>   
-        </plugins>
-        <finalName>${project.artifactId}</finalName>
-    </build>
 	
 </project>

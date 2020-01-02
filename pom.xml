@@ -204,6 +204,14 @@
 	            <version>${zane.version}</version>
 	        </dependency>
 
+			<!-- 系统web模块-->
+			<dependency>
+				<groupId>me.zaneqin</groupId>
+				<artifactId>zane-admin</artifactId>
+				<version>${zane.version}</version>
+			</dependency>
+
+			<!-- 微信公众号 -->
 			<dependency>
 				<groupId>me.zaneqin</groupId>
 				<artifactId>zane-weixin</artifactId>
@@ -220,7 +228,8 @@
 		<module>zane-generator</module>
         <module>zane-common</module>
 		<module>zane-weixin</module>
-	</modules>
+        <module>zane-business</module>
+    </modules>
     <packaging>pom</packaging>
 
 
