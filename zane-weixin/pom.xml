@@ -12,24 +12,16 @@
     <artifactId>zane-weixin</artifactId>
 
     <dependencies>
-        <!-- 通用工具-->
+        <!-- 核心模块-->
         <dependency>
             <groupId>me.zaneqin</groupId>
-            <artifactId>zane-common</artifactId>
+            <artifactId>zane-framework</artifactId>
         </dependency>
 
         <!-- 微信SDK -->
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>
-            <version>3.6.0</version>
-        </dependency>
-
-        <!-- 代码简化工具lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <!-- spring-boot配置 -->

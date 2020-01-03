@@ -7,10 +7,21 @@
     <groupId>me.zaneqin</groupId>
     <artifactId>zane-framework-parent</artifactId>
     <version>4.1.0</version>
-
+	<packaging>pom</packaging>
     <name>zane-framework-parent</name>
     <description>管理系统</description>
-    
+
+	<modules>
+		<module>zane-admin</module>
+		<module>zane-framework</module>
+		<module>zane-system</module>
+		<module>zane-quartz</module>
+		<module>zane-generator</module>
+		<module>zane-common</module>
+		<module>zane-weixin</module>
+		<module>zane-business</module>
+	</modules>
+
     <properties>
 	    <zane.version>4.1.0</zane.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,6 +43,7 @@
 		<velocity.version>1.7</velocity.version>
 		<spring.boot.version>2.1.1.RELEASE</spring.boot.version>
 		<maven.compiler.version>3.7.0</maven.compiler.version>
+		<weixin.sdk.version>3.6.0</weixin.sdk.version>
 	</properties>
 	
     <!-- 依赖声明 -->
@@ -168,6 +180,13 @@
 				<artifactId>fastjson</artifactId>
 				<version>${fastjson.version}</version>
 			</dependency>
+
+			<!-- 微信公众号sdk -->
+			<dependency>
+				<groupId>com.github.binarywang</groupId>
+				<artifactId>weixin-java-mp</artifactId>
+				<version>${weixin.sdk.version}</version>
+			</dependency>
             
             <!-- 定时任务-->
 			<dependency>
@@ -218,26 +237,8 @@
 				<version>${zane.version}</version>
 			</dependency>
         </dependencies>
+
     </dependencyManagement>
-
-    <modules>
-	    <module>zane-admin</module>
-		<module>zane-framework</module>
-		<module>zane-system</module>
-		<module>zane-quartz</module>
-		<module>zane-generator</module>
-        <module>zane-common</module>
-		<module>zane-weixin</module>
-        <module>zane-business</module>
-    </modules>
-    <packaging>pom</packaging>
-
-
-	<dependencies>
-
-		 
-
-	</dependencies>
 
 	<build>
         <plugins>
