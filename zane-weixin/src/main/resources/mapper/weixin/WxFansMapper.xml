@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zaneqin.weixin.mapper.WxFansMapper">
+    
+    <resultMap type="WxFans" id="WxFansResult">
+        <result property="id"    column="id"    />
+        <result property="openid"    column="openid"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="nicknameTxt"    column="nickname_txt"    />
+        <result property="noteName"    column="note_name"    />
+        <result property="headImgUrl"    column="head_img_url"    />
+        <result property="sex"    column="sex"    />
+        <result property="subscribe"    column="subscribe"    />
+        <result property="subscribeTime"    column="subscribe_time"    />
+        <result property="subscribeScene"    column="subscribe_scene"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="bindStatus"    column="bind_status"    />
+        <result property="bindTime"    column="bind_time"    />
+        <result property="tagList"    column="tag_list"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="country"    column="country"    />
+        <result property="qrScene"    column="qr_scene"    />
+        <result property="qrSceneStr"    column="qr_scene_str"    />
+        <result property="groupId"    column="group_id"    />
+        <result property="language"    column="language"    />
+        <result property="unionId"    column="union_id"    />
+        <result property="wid"    column="wid"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+    </resultMap>
+
+    <sql id="selectWxFansVo">
+        select id, openid, nickname, nickname_txt, note_name, head_img_url, sex, subscribe, subscribe_time, subscribe_scene, mobile, bind_status, bind_time, tag_list, province, city, country, qr_scene, qr_scene_str, group_id, language, union_id, wid, create_time, create_by, update_time, update_by from wx_fans
+    </sql>
+
+    <select id="selectWxFansList" parameterType="WxFans" resultMap="WxFansResult">
+        <include refid="selectWxFansVo"/>
+        <where>  
+            <if test="openid != null  and openid != ''"> and openid = #{openid}</if>
+            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="sex != null  and sex != ''"> and sex = #{sex}</if>
+            <if test="subscribe != null  and subscribe != ''"> and subscribe = #{subscribe}</if>
+            <if test="subscribeScene != null  and subscribeScene != ''"> and subscribe_scene = #{subscribeScene}</if>
+            <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+            <if test="bindStatus != null  and bindStatus != ''"> and bind_status = #{bindStatus}</if>
+            <if test="tagList != null  and tagList != ''"> and tag_list = #{tagList}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="country != null  and country != ''"> and country = #{country}</if>
+        </where>
+    </select>
+    
+    <select id="selectWxFansById" parameterType="Long" resultMap="WxFansResult">
+        <include refid="selectWxFansVo"/>
+        where id = #{id}
+    </select>
+    <select id="selectWxFansByOpenId" parameterType="String" resultMap="WxFansResult">
+        <include refid="selectWxFansVo"/>
+        where openid = #{param1}
+    </select>
+
+    <insert id="insertWxFans" parameterType="WxFans">
+        insert into wx_fans
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="openid != null  and openid != ''">openid,</if>
+            <if test="nickname != null  and nickname != ''">nickname,</if>
+            <if test="nicknameTxt != null  and nicknameTxt != ''">nickname_txt,</if>
+            <if test="noteName != null  and noteName != ''">note_name,</if>
+            <if test="headImgUrl != null  and headImgUrl != ''">head_img_url,</if>
+            <if test="sex != null  and sex != ''">sex,</if>
+            <if test="subscribe != null  and subscribe != ''">subscribe,</if>
+            <if test="subscribeTime != null ">subscribe_time,</if>
+            <if test="subscribeScene != null  and subscribeScene != ''">subscribe_scene,</if>
+            <if test="mobile != null  and mobile != ''">mobile,</if>
+            <if test="bindStatus != null  and bindStatus != ''">bind_status,</if>
+            <if test="bindTime != null ">bind_time,</if>
+            <if test="tagList != null  and tagList != ''">tag_list,</if>
+            <if test="province != null  and province != ''">province,</if>
+            <if test="city != null  and city != ''">city,</if>
+            <if test="country != null  and country != ''">country,</if>
+            <if test="qrScene != null  and qrScene != ''">qr_scene,</if>
+            <if test="qrSceneStr != null  and qrSceneStr != ''">qr_scene_str,</if>
+            <if test="groupId != null  and groupId != ''">group_id,</if>
+            <if test="language != null  and language != ''">language,</if>
+            <if test="unionId != null  and unionId != ''">union_id,</if>
+            <if test="wid != null  and wid != ''">wid,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null ">#{id},</if>
+            <if test="openid != null  and openid != ''">#{openid},</if>
+            <if test="nickname != null  and nickname != ''">#{nickname},</if>
+            <if test="nicknameTxt != null  and nicknameTxt != ''">#{nicknameTxt},</if>
+            <if test="noteName != null  and noteName != ''">#{noteName},</if>
+            <if test="headImgUrl != null  and headImgUrl != ''">#{headImgUrl},</if>
+            <if test="sex != null  and sex != ''">#{sex},</if>
+            <if test="subscribe != null  and subscribe != ''">#{subscribe},</if>
+            <if test="subscribeTime != null ">#{subscribeTime},</if>
+            <if test="subscribeScene != null  and subscribeScene != ''">#{subscribeScene},</if>
+            <if test="mobile != null  and mobile != ''">#{mobile},</if>
+            <if test="bindStatus != null  and bindStatus != ''">#{bindStatus},</if>
+            <if test="bindTime != null ">#{bindTime},</if>
+            <if test="tagList != null  and tagList != ''">#{tagList},</if>
+            <if test="province != null  and province != ''">#{province},</if>
+            <if test="city != null  and city != ''">#{city},</if>
+            <if test="country != null  and country != ''">#{country},</if>
+            <if test="qrScene != null  and qrScene != ''">#{qrScene},</if>
+            <if test="qrSceneStr != null  and qrSceneStr != ''">#{qrSceneStr},</if>
+            <if test="groupId != null  and groupId != ''">#{groupId},</if>
+            <if test="language != null  and language != ''">#{language},</if>
+            <if test="unionId != null  and unionId != ''">#{unionId},</if>
+            <if test="wid != null  and wid != ''">#{wid},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWxFans" parameterType="WxFans">
+        update wx_fans
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="openid != null  and openid != ''">openid = #{openid},</if>
+            <if test="nickname != null  and nickname != ''">nickname = #{nickname},</if>
+            <if test="nicknameTxt != null  and nicknameTxt != ''">nickname_txt = #{nicknameTxt},</if>
+            <if test="noteName != null  and noteName != ''">note_name = #{noteName},</if>
+            <if test="headImgUrl != null  and headImgUrl != ''">head_img_url = #{headImgUrl},</if>
+            <if test="sex != null  and sex != ''">sex = #{sex},</if>
+            <if test="subscribe != null  and subscribe != ''">subscribe = #{subscribe},</if>
+            <if test="subscribeTime != null ">subscribe_time = #{subscribeTime},</if>
+            <if test="subscribeScene != null  and subscribeScene != ''">subscribe_scene = #{subscribeScene},</if>
+            <if test="mobile != null  and mobile != ''">mobile = #{mobile},</if>
+            <if test="bindStatus != null  and bindStatus != ''">bind_status = #{bindStatus},</if>
+            <if test="bindTime != null ">bind_time = #{bindTime},</if>
+            <if test="tagList != null  and tagList != ''">tag_list = #{tagList},</if>
+            <if test="province != null  and province != ''">province = #{province},</if>
+            <if test="city != null  and city != ''">city = #{city},</if>
+            <if test="country != null  and country != ''">country = #{country},</if>
+            <if test="qrScene != null  and qrScene != ''">qr_scene = #{qrScene},</if>
+            <if test="qrSceneStr != null  and qrSceneStr != ''">qr_scene_str = #{qrSceneStr},</if>
+            <if test="groupId != null  and groupId != ''">group_id = #{groupId},</if>
+            <if test="language != null  and language != ''">language = #{language},</if>
+            <if test="unionId != null  and unionId != ''">union_id = #{unionId},</if>
+            <if test="wid != null  and wid != ''">wid = #{wid},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWxFansById" parameterType="Long">
+        delete from wx_fans where id = #{id}
+    </delete>
+
+    <delete id="deleteWxFansByIds" parameterType="String">
+        delete from wx_fans where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
