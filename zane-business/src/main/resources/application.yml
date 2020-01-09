@@ -134,14 +134,12 @@ wx:
   server: www.choix.cn
   mp:
     configs:
-      # 公众号的appid
-      #      - appId: wxdbeabee473c87418
-      - appId: wxdbeabee473c87418
-        #公众号的appsecret
-        #        secret: 1b2ca58b9b966bda0d6361df0dd4f281
-        secret: 1b2ca58b9b966bda0d6361df0dd4f281
+        # 公众号的appid
+      - appId: wxef9a10c61383a371
+        # 公众号的appsecret
+        secret: 998765594ddddeb263fc146a8f92e123
         # 接口配置里的Token值
-        token: choix
+        token: zane
         # 接口配置里的EncodingAESKey值
         aesKey: pW6TQ3VawxHHe1hqxDFLAIqP0Yl9luaysdx4Lct8VFh
       - appId: wxef9a10c61383a371

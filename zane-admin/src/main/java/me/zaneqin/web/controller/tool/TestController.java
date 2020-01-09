@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
  * 
  * @author ZaneQin
  */
-@Api("用户信息管理")
+@Api(description = "用户信息管理")
 @RestController
 @RequestMapping("/test/user")
 public class TestController extends BaseController

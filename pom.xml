@@ -12,12 +12,12 @@
     <description>管理系统</description>
 
 	<modules>
-		<module>zane-admin</module>
-		<module>zane-framework</module>
+		<module>zane-common</module>
 		<module>zane-system</module>
+		<module>zane-framework</module>
 		<module>zane-quartz</module>
 		<module>zane-generator</module>
-		<module>zane-common</module>
+		<module>zane-admin</module>
 		<module>zane-weixin</module>
 		<module>zane-business</module>
 	</modules>
