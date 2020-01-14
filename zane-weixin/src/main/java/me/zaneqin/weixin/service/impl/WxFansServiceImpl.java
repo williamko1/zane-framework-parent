@@ -94,4 +94,16 @@ public class WxFansServiceImpl implements IWxFansService
     {
         return wxFansMapper.deleteWxFansById(id);
     }
+
+    /**
+     * 根据openId获取微信粉丝
+     * @param openId
+     * @param wid
+     * @return
+     */
+    @Override
+    public WxFans selectWxFansByOpenId(String openId, String wid) {
+        return wxFansMapper.selectWxFansByOpenId(openId, wid);
+    }
+
 }

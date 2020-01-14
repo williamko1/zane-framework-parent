@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zaneqin.weixin.mapper.WxTagMapper">
+    
+    <resultMap type="WxTag" id="WxTagResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="wid"    column="wid"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWxTagVo">
+        select id, name, wid, create_by, create_time, update_by, update_time from wx_tag
+    </sql>
+
+    <select id="selectWxTagList" parameterType="WxTag" resultMap="WxTagResult">
+        <include refid="selectWxTagVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="wid != null  and wid != ''"> and wid = #{wid}</if>
+        </where>
+    </select>
+    
+    <select id="selectWxTagById" parameterType="Long" resultMap="WxTagResult">
+        <include refid="selectWxTagVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertWxTag" parameterType="WxTag" useGeneratedKeys="true" keyProperty="id">
+        insert into wx_tag
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null ">id,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="wid != null  and wid != ''">wid,</if>
+            <if test="createBy != null  and createBy != ''">create_by,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateBy != null  and updateBy != ''">update_by,</if>
+            <if test="updateTime != null ">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null ">#{id},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="wid != null  and wid != ''">#{wid},</if>
+            <if test="createBy != null  and createBy != ''">#{createBy},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWxTag" parameterType="WxTag">
+        update wx_tag
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''">name = #{name},</if>
+            <if test="wid != null  and wid != ''">wid = #{wid},</if>
+            <if test="createBy != null  and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateBy != null  and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWxTagById" parameterType="Long">
+        delete from wx_tag where id = #{id}
+    </delete>
+
+    <delete id="deleteWxTagByIds" parameterType="String">
+        delete from wx_tag where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteAllWxTagByWid" parameterType="String">
+        delete from wx_tag where wid = #{wid}
+    </delete>
+</mapper>

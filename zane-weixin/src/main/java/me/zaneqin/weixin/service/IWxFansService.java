@@ -58,4 +58,13 @@ public interface IWxFansService
      * @return 结果
      */
     public int deleteWxFansById(Long id);
+
+    /**
+     * 根据openId获取微信粉丝
+     * @param openId
+     * @param wid
+     * @return
+     */
+    WxFans selectWxFansByOpenId(String openId, String wid);
+
 }

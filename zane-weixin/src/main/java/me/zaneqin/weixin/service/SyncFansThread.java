@@ -6,7 +6,6 @@ import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.zaneqin.common.utils.DateUtils;
 import me.zaneqin.common.utils.spring.SpringUtils;
 import me.zaneqin.weixin.domain.WxFans;
-import me.zaneqin.weixin.mapper.WxFansMapper;
 import me.zaneqin.weixin.util.WxBeanConvertUtil;
 
 import java.text.SimpleDateFormat;
@@ -27,7 +26,7 @@ import java.util.concurrent.Callable;
 @Log4j2
 public class SyncFansThread implements Callable<Boolean> {
 
-    private WxFansMapper fansDao = SpringUtils.getBean(WxFansMapper.class);
+    private IWxFansService wxFansService = SpringUtils.getBean(IWxFansService.class);
     private WxMpService wxService = SpringUtils.getBean(WxMpService.class);
 
     //公众号ID
@@ -54,16 +53,16 @@ public class SyncFansThread implements Callable<Boolean> {
                 for (WxMpUser wxMpUser : wxMpUsers) {
                     String openId = wxMpUser.getOpenId();
                     //1.判断当前粉丝在表中是否存在
-                    WxFans fan = fansDao.selectWxFansByOpenId(openId, wid);
+                    WxFans fan = wxFansService.selectWxFansByOpenId(openId, wid);
                     //2.不存在，添加
                     WxFans newFan = WxBeanConvertUtil.wxFansConvert(wxMpUser);
                     newFan.setWid(wid);
                     if (fan == null) {
-                        fansDao.insertWxFans(newFan);
+                        wxFansService.insertWxFans(newFan);
                     } else {
                         // 存在修改
                         newFan.setId(fan.getId());
-                        fansDao.updateWxFans(newFan);
+                        wxFansService.updateWxFans(newFan);
                     }
                 }
             }
