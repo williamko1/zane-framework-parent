@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zaneqin.weixin.mapper.WxReceiveMsgMapper">
+    
+    <resultMap type="WxReceiveMsg" id="WxReceiveMsgResult">
+        <result property="msgId"    column="msg_id"    />
+        <result property="toUserName"    column="to_user_name"    />
+        <result property="fromUserName"    column="from_user_name"    />
+        <result property="msgType"    column="msg_type"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="wid"    column="wid"    />
+        <result property="content"    column="content"    />
+        <result property="mediaId"    column="media_id"    />
+        <result property="picUrl"    column="pic_url"    />
+        <result property="format"    column="format"    />
+        <result property="recognition"    column="recognition"    />
+        <result property="thumbMediaId"    column="thumb_media_id"    />
+        <result property="title"    column="title"    />
+        <result property="description"    column="description"    />
+        <result property="url"    column="url"    />
+    </resultMap>
+
+    <sql id="selectWxReceiveMsgVo">
+        select msg_id, to_user_name, from_user_name, msg_type, create_time, wid, content, media_id, pic_url, format, recognition, thumb_media_id, title, description, url from wx_receive_msg
+    </sql>
+
+    <select id="selectWxReceiveMsgList" parameterType="WxReceiveMsg" resultMap="WxReceiveMsgResult">
+        <include refid="selectWxReceiveMsgVo"/>
+        <where>  
+            <if test="fromUserName != null  and fromUserName != ''"> and from_user_name like concat('%', #{fromUserName}, '%')</if>
+            <if test="msgType != null  and msgType != ''"> and msg_type = #{msgType}</if>
+            <if test="wid != null  and wid != ''"> and wid = #{wid}</if>
+        </where>
+    </select>
+    
+    <select id="selectWxReceiveMsgById" parameterType="Long" resultMap="WxReceiveMsgResult">
+        <include refid="selectWxReceiveMsgVo"/>
+        where msg_id = #{msgId}
+    </select>
+        
+    <insert id="insertWxReceiveMsg" parameterType="WxReceiveMsg">
+        insert into wx_receive_msg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="msgId != null ">msg_id,</if>
+            <if test="toUserName != null  and toUserName != ''">to_user_name,</if>
+            <if test="fromUserName != null  and fromUserName != ''">from_user_name,</if>
+            <if test="msgType != null  and msgType != ''">msg_type,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="wid != null  and wid != ''">wid,</if>
+            <if test="content != null  and content != ''">content,</if>
+            <if test="mediaId != null  and mediaId != ''">media_id,</if>
+            <if test="picUrl != null  and picUrl != ''">pic_url,</if>
+            <if test="format != null  and format != ''">format,</if>
+            <if test="recognition != null  and recognition != ''">recognition,</if>
+            <if test="thumbMediaId != null  and thumbMediaId != ''">thumb_media_id,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="description != null  and description != ''">description,</if>
+            <if test="url != null  and url != ''">url,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="msgId != null ">#{msgId},</if>
+            <if test="toUserName != null  and toUserName != ''">#{toUserName},</if>
+            <if test="fromUserName != null  and fromUserName != ''">#{fromUserName},</if>
+            <if test="msgType != null  and msgType != ''">#{msgType},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="wid != null  and wid != ''">#{wid},</if>
+            <if test="content != null  and content != ''">#{content},</if>
+            <if test="mediaId != null  and mediaId != ''">#{mediaId},</if>
+            <if test="picUrl != null  and picUrl != ''">#{picUrl},</if>
+            <if test="format != null  and format != ''">#{format},</if>
+            <if test="recognition != null  and recognition != ''">#{recognition},</if>
+            <if test="thumbMediaId != null  and thumbMediaId != ''">#{thumbMediaId},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="description != null  and description != ''">#{description},</if>
+            <if test="url != null  and url != ''">#{url},</if>
+         </trim>
+    </insert>
+
+    <update id="updateWxReceiveMsg" parameterType="WxReceiveMsg">
+        update wx_receive_msg
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="toUserName != null  and toUserName != ''">to_user_name = #{toUserName},</if>
+            <if test="fromUserName != null  and fromUserName != ''">from_user_name = #{fromUserName},</if>
+            <if test="msgType != null  and msgType != ''">msg_type = #{msgType},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="wid != null  and wid != ''">wid = #{wid},</if>
+            <if test="content != null  and content != ''">content = #{content},</if>
+            <if test="mediaId != null  and mediaId != ''">media_id = #{mediaId},</if>
+            <if test="picUrl != null  and picUrl != ''">pic_url = #{picUrl},</if>
+            <if test="format != null  and format != ''">format = #{format},</if>
+            <if test="recognition != null  and recognition != ''">recognition = #{recognition},</if>
+            <if test="thumbMediaId != null  and thumbMediaId != ''">thumb_media_id = #{thumbMediaId},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="description != null  and description != ''">description = #{description},</if>
+            <if test="url != null  and url != ''">url = #{url},</if>
+        </trim>
+        where msg_id = #{msgId}
+    </update>
+
+    <delete id="deleteWxReceiveMsgById" parameterType="Long">
+        delete from wx_receive_msg where msg_id = #{msgId}
+    </delete>
+
+    <delete id="deleteWxReceiveMsgByIds" parameterType="String">
+        delete from wx_receive_msg where msg_id in 
+        <foreach item="msgId" collection="array" open="(" separator="," close=")">
+            #{msgId}
+        </foreach>
+    </delete>
+    
+</mapper>

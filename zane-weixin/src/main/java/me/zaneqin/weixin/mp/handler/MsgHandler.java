@@ -23,11 +23,14 @@ import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
 @Component
 public class MsgHandler extends AbstractHandler {
 
+
+
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
                                     WxSessionManager sessionManager) {
 
+        // 除了事件消息之外
         if (!wxMessage.getMsgType().equals(XmlMsgType.EVENT)) {
             //TODO 可以选择将消息保存到本地
         }

@@ -11,6 +11,7 @@ import java.util.Map;
 import static me.chanjar.weixin.common.api.WxConsts.EventType;
 
 /**
+ * 菜单处理器
  * @author : Zane Qin
  * createTime : 13:45 2020/1/2
  * modifier :

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
+ * 连接处理器
  * @author : Zane Qin
  * createTime : 13:45 2020/1/2
  * modifier :

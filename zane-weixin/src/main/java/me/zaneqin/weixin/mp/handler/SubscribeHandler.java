@@ -6,6 +6,10 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import me.zaneqin.weixin.domain.WxFans;
+import me.zaneqin.weixin.service.IWxFansService;
+import me.zaneqin.weixin.util.WxBeanConvertUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import me.zaneqin.weixin.mp.builder.TextBuilder;
 
@@ -20,19 +24,30 @@ import java.util.Map;
 @Component
 public class SubscribeHandler extends AbstractHandler {
 
+    @Autowired
+    IWxFansService wxFansService;
+
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
                                     WxSessionManager sessionManager) throws WxErrorException {
-
         this.logger.info("新关注用户 OPENID: " + wxMessage.getFromUser());
-
+        String appId = weixinService.getWxMpConfigStorage().getAppId();
         // 获取微信用户基本信息
         try {
             WxMpUser userWxInfo = weixinService.getUserService()
                     .userInfo(wxMessage.getFromUser(), null);
             if (userWxInfo != null) {
-                // TODO 可以添加关注用户到本地数据库
+                // 添加关注用户到本地数据库
+                WxFans wxFans = WxBeanConvertUtil.wxFansConvert(userWxInfo);
+                wxFans.setWid(appId);
+                WxFans oldFan = wxFansService.selectWxFansByOpenId(userWxInfo.getOpenId(), appId);
+                if (oldFan != null) {
+                    wxFans.setId(oldFan.getId());
+                    wxFansService.updateWxFans(wxFans);
+                } else {
+                    wxFansService.insertWxFans(wxFans);
+                }
             }
         } catch (WxErrorException e) {
             if (e.getError().getErrorCode() == 48001) {
