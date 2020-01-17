@@ -21,7 +21,7 @@ public class WxReceiveMsg extends BaseEntity
     /** 消息id */
 
     @ApiModelProperty("消息id")
-    private Long msgId;
+    private String msgId;
 
     /** 开发者微信号 */
 
@@ -92,12 +92,12 @@ public class WxReceiveMsg extends BaseEntity
     @ApiModelProperty("消息链接")
     private String url;
 
-    public void setMsgId(Long msgId) 
+    public void setMsgId(String msgId)
     {
         this.msgId = msgId;
     }
 
-    public Long getMsgId() 
+    public String getMsgId()
     {
         return msgId;
     }

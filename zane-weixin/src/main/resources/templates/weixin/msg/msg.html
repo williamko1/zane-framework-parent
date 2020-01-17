@@ -16,7 +16,7 @@
                             </li>
                             <li>
                                 <p>消息类型：</p>
-                                <select name="msgType" th:with="type=${@dict.getType('')}">
+                                <select name="msgType" th:with="type=${@dict.getType('wx_msg_type')}">
                                     <option value="">所有</option>
                                     <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
                                 </select>
@@ -57,6 +57,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('weixin:msg:edit')}]];
         var removeFlag = [[${@permission.hasPermi('weixin:msg:remove')}]];
+        var wxMsgTypeDatas = [[${@dict.getType('wx_msg_type')}]];
         var prefix = ctx + "weixin/msg";
 
         $(function() {
@@ -81,7 +82,10 @@
                 },
                 {
                     field : 'msgType', 
-                    title : '消息类型'
+                    title : '消息类型',
+                    formatter: function(value, row, index) {
+                        return $.table.selectDictLabel(wxMsgTypeDatas, value);
+                    }
                 },
                 {
                     field : 'createTime', 

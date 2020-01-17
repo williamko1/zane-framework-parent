@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectWxReceiveMsgById" parameterType="Long" resultMap="WxReceiveMsgResult">
+    <select id="selectWxReceiveMsgById" parameterType="String" resultMap="WxReceiveMsgResult">
         <include refid="selectWxReceiveMsgVo"/>
         where msg_id = #{msgId}
     </select>
@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where msg_id = #{msgId}
     </update>
 
-    <delete id="deleteWxReceiveMsgById" parameterType="Long">
+    <delete id="deleteWxReceiveMsgById" parameterType="String">
         delete from wx_receive_msg where msg_id = #{msgId}
     </delete>
 

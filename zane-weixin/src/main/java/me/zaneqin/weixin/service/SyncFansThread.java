@@ -55,7 +55,7 @@ public class SyncFansThread implements Callable<Boolean> {
                     //1.判断当前粉丝在表中是否存在
                     WxFans fan = wxFansService.selectWxFansByOpenId(openId, wid);
                     //2.不存在，添加
-                    WxFans newFan = WxBeanConvertUtil.wxFansConvert(wxMpUser);
+                    WxFans newFan = WxBeanConvertUtil.convert(wxMpUser);
                     newFan.setWid(wid);
                     if (fan == null) {
                         wxFansService.insertWxFans(newFan);

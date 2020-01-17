@@ -1,5 +1,6 @@
 package me.zaneqin.weixin.mp.handler;
 
+import me.zaneqin.weixin.domain.WxReceiveMsg;
 import me.zaneqin.weixin.mp.builder.TextBuilder;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -7,7 +8,10 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.zaneqin.weixin.mp.utils.JsonUtils;
+import me.zaneqin.weixin.service.IWxReceiveMsgService;
+import me.zaneqin.weixin.util.WxBeanConvertUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -23,7 +27,8 @@ import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
 @Component
 public class MsgHandler extends AbstractHandler {
 
-
+    @Autowired
+    private IWxReceiveMsgService msgService;
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
@@ -32,7 +37,9 @@ public class MsgHandler extends AbstractHandler {
 
         // 除了事件消息之外
         if (!wxMessage.getMsgType().equals(XmlMsgType.EVENT)) {
-            //TODO 可以选择将消息保存到本地
+            //将消息保存到本地
+            WxReceiveMsg wxReceiveMsg = WxBeanConvertUtil.convert(wxMessage);
+            msgService.insertWxReceiveMsg(wxReceiveMsg);
         }
 
         //当用户输入关键词如“你好”，“客服”等，并且有客服在线时，把消息转发给在线客服

@@ -17,7 +17,7 @@ public interface IWxReceiveMsgService
      * @param msgId 历史消息ID
      * @return 历史消息
      */
-    public WxReceiveMsg selectWxReceiveMsgById(Long msgId);
+    public WxReceiveMsg selectWxReceiveMsgById(String msgId);
 
     /**
      * 查询历史消息列表
@@ -57,5 +57,5 @@ public interface IWxReceiveMsgService
      * @param msgId 历史消息ID
      * @return 结果
      */
-    public int deleteWxReceiveMsgById(Long msgId);
+    public int deleteWxReceiveMsgById(String msgId);
 }

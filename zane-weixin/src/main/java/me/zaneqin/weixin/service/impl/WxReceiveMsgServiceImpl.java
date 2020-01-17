@@ -28,7 +28,7 @@ public class WxReceiveMsgServiceImpl implements IWxReceiveMsgService
      * @return 历史消息
      */
     @Override
-    public WxReceiveMsg selectWxReceiveMsgById(Long msgId)
+    public WxReceiveMsg selectWxReceiveMsgById(String msgId)
     {
         return wxReceiveMsgMapper.selectWxReceiveMsgById(msgId);
     }
@@ -89,7 +89,7 @@ public class WxReceiveMsgServiceImpl implements IWxReceiveMsgService
      * @return 结果
      */
     @Override
-    public int deleteWxReceiveMsgById(Long msgId)
+    public int deleteWxReceiveMsgById(String msgId)
     {
         return wxReceiveMsgMapper.deleteWxReceiveMsgById(msgId);
     }

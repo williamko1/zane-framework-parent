@@ -39,7 +39,7 @@ public class SubscribeHandler extends AbstractHandler {
                     .userInfo(wxMessage.getFromUser(), null);
             if (userWxInfo != null) {
                 // 添加关注用户到本地数据库
-                WxFans wxFans = WxBeanConvertUtil.wxFansConvert(userWxInfo);
+                WxFans wxFans = WxBeanConvertUtil.convert(userWxInfo);
                 wxFans.setWid(appId);
                 WxFans oldFan = wxFansService.selectWxFansByOpenId(userWxInfo.getOpenId(), appId);
                 if (oldFan != null) {

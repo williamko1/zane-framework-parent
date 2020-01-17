@@ -1,7 +1,10 @@
 package me.zaneqin.weixin.util;
 
+import me.chanjar.weixin.common.api.WxConsts;
+import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.zaneqin.weixin.domain.WxFans;
+import me.zaneqin.weixin.domain.WxReceiveMsg;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -17,7 +20,7 @@ import java.util.Date;
 public class WxBeanConvertUtil {
 
     // 微信粉丝
-    public static WxFans wxFansConvert(WxMpUser wxMpUser) {
+    public static WxFans convert(WxMpUser wxMpUser) {
         WxFans newFan = new WxFans();
         newFan.setOpenid(wxMpUser.getOpenId());
         if (wxMpUser.getSubscribe()) {
@@ -43,6 +46,39 @@ public class WxBeanConvertUtil {
             newFan.setSubscribe("0");
         }
         return newFan;
+    }
+
+    // 微信消息
+    public static WxReceiveMsg convert(WxMpXmlMessage wxMpXmlMessage) {
+        String msgType = wxMpXmlMessage.getMsgType();
+        WxReceiveMsg msg = new WxReceiveMsg();
+        msg.setMsgId(String.valueOf(wxMpXmlMessage.getMsgId()));
+        msg.setFromUserName(wxMpXmlMessage.getFromUser());
+        msg.setToUserName(wxMpXmlMessage.getToUser());
+        msg.setWid(wxMpXmlMessage.getToUser());
+        msg.setMsgType(msgType);
+        msg.setCreateTime(new Date(wxMpXmlMessage.getCreateTime() * 1000));
+        if (WxConsts.XmlMsgType.TEXT.equals(msgType)) {
+            msg.setContent(wxMpXmlMessage.getContent());
+        }
+        if (WxConsts.XmlMsgType.VOICE.equals(msgType)) {
+            msg.setMediaId(wxMpXmlMessage.getMediaId());
+            msg.setFormat(wxMpXmlMessage.getFormat());
+        }
+        if (WxConsts.XmlMsgType.IMAGE.equals(msgType)) {
+            msg.setMediaId(wxMpXmlMessage.getMediaId());
+            msg.setPicUrl(wxMpXmlMessage.getPicUrl());
+        }
+        if (WxConsts.XmlMsgType.VIDEO.equals(msgType) || WxConsts.XmlMsgType.SHORTVIDEO.equals(msgType)) {
+            msg.setMediaId(wxMpXmlMessage.getMediaId());
+            msg.setThumbMediaId(wxMpXmlMessage.getThumbMediaId());
+        }
+        if (WxConsts.XmlMsgType.LINK.equals(msgType)) {
+            msg.setTitle(wxMpXmlMessage.getTitle());
+            msg.setDescription(wxMpXmlMessage.getDescription());
+            msg.setUrl(wxMpXmlMessage.getUrl());
+        }
+        return msg;
     }
 
 }

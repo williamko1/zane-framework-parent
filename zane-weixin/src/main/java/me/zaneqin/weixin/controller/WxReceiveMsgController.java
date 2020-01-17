@@ -106,7 +106,7 @@ public class WxReceiveMsgController extends BaseController
     @ApiOperation("修改历史消息")
     @ApiImplicitParam(name = "msgId", value = "msgId", dataType = "Long", paramType = "path")
     @GetMapping("/edit/{msgId}")
-    public String edit(@PathVariable("msgId") Long msgId, ModelMap mmap)
+    public String edit(@PathVariable("msgId") String msgId, ModelMap mmap)
     {
         WxReceiveMsg wxReceiveMsg = wxReceiveMsgService.selectWxReceiveMsgById(msgId);
         mmap.put("wxReceiveMsg", wxReceiveMsg);
